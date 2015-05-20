@@ -1,33 +1,90 @@
-<!DOCTYPE HTML>
+<html lang="en"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<html>
+    <title>PNASS</title>
 
-<head>
-	<title>Meu site pessoal</title>
-	<meta charset="utf-8" />
-	<style>
-		#jes {
-			color: red;
-			box-shadow: 2 2 2 black;
-		}
-		body {
-			color: blue;
-		}
-	</style>
-</head>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-<body>
-	<h1>Cabeçalho</h1>
-	<a href="https://www.facebook.com/jessica.daniella.7">Jéssica</a>
-	<p id="jes">Gosto de programar</p>
-	<p>Minhas linguagens preferidas:</p>
-	<ol>
-		<li>Lista 1</li>
-		<li>Lista 2</li>
-		<li>Lista 3</li>
-		<li>Lista 4</li>
-	</ol>
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+
+    <script src="js/parse.js"></script>
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="js/ie-emulation-modes-warning.js"></script>
+    <style type="text/css">
+
+    #NovaPergunta {
+    	width: 200px;
+    	margin-left: auto;
+    	margin-right: auto;
+    	display: block;
+    }
+
+    .tiposPerguntas {
+    	text-align: center;
+    }
+
+    </style>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="#">Sobre</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Fórum - PNASS</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Fórum PNASS</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      </div>
+
+      <a href="novapergunta.html" id="NovaPergunta"><button type="button" class="btn btn-lg btn-success">Nova Pergunta</button></a>
+
+      <br><br>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <h4 class="tiposPerguntas">Sobre manusear o aplicativo</h4>
+        </div>
+
+        <div class="col-lg-6">
+          <h4 class="tiposPerguntas">Sobre o instrumento</h4>
+        </div>
+      </div>
+    </div> <!-- /container -->
+
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
+    <script>
+    
+    Parse.initialize("dSMhX7IjBvUgHPjTfbu1h9aDJhLQo2FbjTntrvHU", "4ukGcVnnz0ZDx84nRo3bfjqUlb2cCvEPVzlNBZz2");
+
+    
+    	
+    </script>
+  
 
 </body>
-
 </html>
