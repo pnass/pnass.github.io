@@ -87,24 +87,28 @@
         }
         */
 
-        var Pergunta = Parse.Object.extend("Perguntas");
-        var pergunta = new Pergunta();
-        //pergunta.set("tipo", opcao);
-
-        pergunta.save({
-          nome: nome,
-          texto: pergunta,
-        }, {
-          success: function(pergunta) {
-            // The object was saved successfully.
-            alert("Funcionou!!!!!!");
+        var Perguntas = Parse.Object.extend("Perguntas");
+        var new_pergunta = new Perguntas();
+        
+        console.log("Yes");
+        new_pergunta.set("nome", nome);
+        new_pergunta.set("texto", pergunta);
+        /*
+        new_pergunta.save(null, {
+          sucess: function(new_pergunta) {
+            console.log("Salvou com sucesso!");
+            alert("New object created with objectId: " + new_pergunta.id);
           },
-          error: function(pergunta, error) {
-            // The save failed.
-            // error is a Parse.Error with an error code and message.
-            alert("Fail :(" + error.message);
+          error: function(new_pergunta, error) {
+            alert("Failed to create new object, with error code: " + error.message);
           }
         });
+        console.log("Yessss");
+        */
+        new_pergunta.save().then(function(object) {
+          alert("worked!");
+          document.location.href = 'index.html';
+        })
           
       }
     </script>
