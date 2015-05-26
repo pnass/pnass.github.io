@@ -11,14 +11,10 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="jumbotron-narrow.css" rel="stylesheet">
-
     <script src="js/parse.js"></script>
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="js/ie-emulation-modes-warning.js"></script>
     <style type="text/css">
 
     #NovaPergunta {
@@ -63,7 +59,7 @@
 
   <body>
 
-    <div class="container">
+    <div id="container" class="container">
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
@@ -82,7 +78,8 @@
 
       <br><br>
 
-      <div class="row marketing">
+      <!--
+      <div id="generalElement" class="row marketing">
         <div id="perguntasTipo1" class="col-lg-6">
           <h4 class="tiposPerguntas">Sobre manusear o aplicativo</h4>
         </div>
@@ -90,21 +87,124 @@
         <div id="perguntasTipo2" class="col-lg-6">
           <h4 class="tiposPerguntas">Sobre o instrumento</h4>
         </div>
-      </div>
+      </div> -->
     </div> <!-- /container -->
 
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="js/ie10-viewport-bug-workaround.js"></script>
 
     <script>
     
     Parse.initialize("dSMhX7IjBvUgHPjTfbu1h9aDJhLQo2FbjTntrvHU", "4ukGcVnnz0ZDx84nRo3bfjqUlb2cCvEPVzlNBZz2");
 
-    var perguntasTipo1 = document.getElementById("perguntasTipo1");
-    var perguntasTipo2 = document.getElementById("perguntasTipo2");
+    gerarElementosComPerguntas();
+
+    function gerarElementosComPerguntas() {
+      var generalElement = document.createElement("div");
+      generalElement.id = "generalElement";
+      generalElement.className = "row marketing";
+
+      document.getElementById("container").appendChild(generalElement);
+
+      var perguntas1 = document.createElement("div");
+      perguntas1.id = "perguntasTipo1";
+      perguntas1.className = "col-lg-6";
+
+      var perguntas2 = document.createElement("div");
+      perguntas2.id = "perguntasTipo2";
+      perguntas2.className = "col-lg-6";
+
+      generalElement.appendChild(perguntas1);
+      generalElement.appendChild(perguntas2);
+
+      //perguntasTipo1
+      var title = document.createElement("h4");
+      title.className = "tiposPerguntas";
+      var textNode = document.createTextNode("Sobre manusear o aplicativo");
+      title.appendChild(textNode);
+
+      perguntas1.appendChild(title);
+
+      title = document.createElement("h4");
+      title.className = "tiposPerguntas";
+      textNode = document.createTextNode("Sobre o instrumento");
+      title.appendChild(textNode);
+
+      perguntas2.appendChild(title);
+
+      var Perguntas = Parse.Object.extend("Perguntas");
+      var query = new Parse.Query(Perguntas);
+      query.equalTo("tipo", "aplicativo");
+      query.find({
+        success: function(results) {
+          console.log(results[0].get("nome"));
+          gerarPerguntasTipo1(results);
+        },
+        error: function(error) {
+          console.log("Deu erro ao pegar perguntas do tipo 1: " + error.message);
+        }
+      });
+
+      var query = new Parse.Query(Perguntas);
+      query.equalTo("tipo", "instrumento");
+      query.find({
+        success: function(results) {
+          console.log(results[0].get("nome"));
+          gerarPerguntasTipo2(results);
+        },
+        error: function(error) {
+          console.log("Deu erro ao pegar as perguntas do tipo 2: " + error.message);
+        }
+      });
+    }
+
+    function gerarPerguntasTipo1(perguntas) {
+      console.log("Chegou p1: " + perguntas.length);
+      for(var i = 0; i < perguntas.length; i++) {
+        var element1 = document.getElementById("perguntasTipo1");
+
+        var div = document.createElement("div");
+        div.className = "perguntas";
+        element1.appendChild(div);
+
+        var pergunta = document.createElement("p");
+        pergunta.style.textAlign = "center";
+        var textNode = document.createTextNode(perguntas[i].get("texto"));
+        pergunta.appendChild(textNode);
+
+        var autor = document.createElement("p");
+        autor.style.textAlign = "center";
+        textNode = document.createTextNode("Autor: " + perguntas[i].get("autor"));
+        autor.appendChild(textNode);
+
+        div.appendChild(pergunta);
+        div.appendChild(autor);        
+
+      }
+    }
+
+    function gerarPerguntasTipo2(perguntas) {
+      console.log("Chegou p2: " + perguntas.length);
+      for(var i = 0; i < perguntas.length; i++) {
+        var element2 = document.getElementById("perguntasTipo2");
+
+        var div = document.createElement("div");
+        div.className = "perguntas";
+        element2.appendChild(div);
+
+        var pergunta = document.createElement("p");
+        pergunta.style.textAlign = "center";
+        var textNode = document.createTextNode(perguntas[i].get("texto"));
+        pergunta.appendChild(textNode);
+
+        var autor = document.createElement("p");
+        autor.style.textAlign = "center";
+        textNode = document.createTextNode("Autor: " + perguntas[i].get("autor"));
+        autor.appendChild(textNode);
+
+        div.appendChild(pergunta);
+        div.appendChild(autor);
+      }    
+    }
     
-    	
     </script>
   
 
