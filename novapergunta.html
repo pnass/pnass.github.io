@@ -44,11 +44,15 @@
       <form>
         <div class="form-group">
           <label for="nome">Nome</label>
-          <input type="text" class="form-control" id="nome" placeholder="Escreva seu nome">
+          <input type="text" class="form-control" id="nome" placeholder="Digite seu nome">
+        </div>
+        <div>
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" placeholder="Digite seu e-mail">
         </div>
         <div class="form-group">
           <label for="pergunta">Pergunta</label>
-          <textarea class="form-control" rows="3" id="pergunta" placeholder="Escreva sua pergunta"></textarea>
+          <textarea class="form-control" rows="3" id="pergunta" placeholder="Digite sua pergunta"></textarea>
         </div>
         <div class="radio">
           <label>
@@ -62,12 +66,31 @@
             Sobre o instrumento
           </label>
         </div>
-        <input type="button" onclick="enviarNovaPergunta()" class="btn btn-default" value="Enviar">
+        <input type="button" onclick="verificarEmail()" class="btn btn-default" value="Enviar">
       </form>
 
     </div> <!-- /container -->
 
     <script>
+
+      function verificarEmail() {
+        var email = document.getElementById("email").value;
+        var Emails = Parse.Object.extend("Emails");
+        var query = new Parse.Query(Emails);
+        query.equalTo("email", email);
+        query.find({
+          success: function(results) {
+            console.log("Achou " + results.length);
+            if(results.length >= 1) enviarNovaPergunta();
+            else {
+              alert("Você não está habilitado a fazer perguntas.");
+              document.location.href = 'index.html';
+            }
+          },
+          error: function(error) {
+          }
+        });
+      }
 
       function enviarNovaPergunta() {
         console.log("Clicou");
@@ -75,24 +98,24 @@
         var pergunta = document.getElementById("pergunta").value;
         console.log("Nome: " + nome + " " + typeof(nome));
         console.log("Pergunta: " + pergunta + " " + typeof(pergunta));
-        /*
+        
         var opcao1, opcao2, opcao;
         opcao1 = document.getElementById("opcao1");
         opcao2 = document.getElementById("opcao2");
         if(opcao1.checked) {
-          opcao = opcao1;
+          opcao = opcao1.value;
         } 
         else if(opcao2.checked) {
-          opcao = opcao2;
+          opcao = opcao2.value;
         }
-        */
-
+        
         var Perguntas = Parse.Object.extend("Perguntas");
         var new_pergunta = new Perguntas();
         
         console.log("Yes");
         new_pergunta.set("nome", nome);
         new_pergunta.set("texto", pergunta);
+        new_pergunta.set("tipo", opcao);
         /*
         new_pergunta.save(null, {
           sucess: function(new_pergunta) {
