@@ -21,6 +21,7 @@
     <script src="js/ie-emulation-modes-warning.js"></script>
     <style type="text/css">
 
+
     #NovaPergunta {
     	width: 200px;
     	margin-left: auto;
@@ -33,7 +34,9 @@
     }
 
     #fundogeral {
+
     background: #92A9D1;
+
     /*border-style: dashed;
     border-color: red;
     border-style:dotted;*/
@@ -52,6 +55,13 @@
       text-align: center;
     }
 
+    #botaosobre{
+      margin-top: 10px; 
+    }
+    .tiposPerguntas{
+      font-weight: bold;
+    }
+
     </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -67,10 +77,10 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation" class="active"><a href="#">Sobre</a></li>
+            <li role="presentation" class="active"><a id="botaosobre" href="sobre.html">Sobre</a></li>
           </ul>
         </nav>
-        <h3 class="text-muted">Fórum - PNASS</h3>
+        <h3 class="text-muted">PNASS - Programa Nacional de Avaliação dos Serviços de Saúde</h3>
       </div>
 
       <div id="fundogeral" class="jumbotron">
@@ -84,11 +94,11 @@
 
       <div class="row marketing">
         <div id="perguntasTipo1" class="col-lg-6">
-          <h4 class="tiposPerguntas">Sobre manusear o aplicativo</h4>
+          <h3 class="tiposPerguntas">Sobre manusear o aplicativo</h4>
         </div>
 
         <div id="perguntasTipo2" class="col-lg-6">
-          <h4 class="tiposPerguntas">Sobre o instrumento</h4>
+          <h3 class="tiposPerguntas">Sobre o instrumento</h4>
         </div>
       </div>
     </div> <!-- /container -->
@@ -103,7 +113,6 @@
 
     var perguntasTipo1 = document.getElementById("perguntasTipo1");
     var perguntasTipo2 = document.getElementById("perguntasTipo2");
-    
     	
     </script>
   
