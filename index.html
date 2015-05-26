@@ -17,6 +17,10 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <style type="text/css">
 
+    body {
+      margin-bottom: 100px;
+    }
+
     #NovaPergunta {
     	width: 200px;
     	margin-left: auto;
@@ -46,6 +50,50 @@
 
     #textoforum{
       text-align: center;
+    }
+
+    .perguntasDiv {
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 5px;
+    }
+
+    .perguntas {
+      font-size: 20px;
+      font-style: bold;
+    }
+
+    .autores {
+      font-style: italic;
+    }
+
+    .respostas:before {
+      display: block;
+      content: "\201C";
+      font-size: 80px;
+      position: absolute;
+      left: -10px;
+      top: -20px;
+      color: #7a7a7a;
+    }
+
+    .respostas {
+      font-family: Georgia, serif;
+      font-size: 16px;
+      font-style: italic;
+      margin: 0.25em 0em;
+      padding: 0.25em 40px;
+      line-height: 1.45;
+      position: relative;
+      color: #383838;
+      text-align: justify;
+    }
+
+    .btn-center {
+      width: 160px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
     }
 
     </style>
@@ -136,7 +184,7 @@
       query.find({
         success: function(results) {
           console.log(results[0].get("nome"));
-          gerarPerguntasTipo1(results);
+          gerarPerguntas(results, 1);
         },
         error: function(error) {
           console.log("Deu erro ao pegar perguntas do tipo 1: " + error.message);
@@ -148,7 +196,7 @@
       query.find({
         success: function(results) {
           console.log(results[0].get("nome"));
-          gerarPerguntasTipo2(results);
+          gerarPerguntas(results, 2);
         },
         error: function(error) {
           console.log("Deu erro ao pegar as perguntas do tipo 2: " + error.message);
@@ -156,53 +204,62 @@
       });
     }
 
-    function gerarPerguntasTipo1(perguntas) {
-      console.log("Chegou p1: " + perguntas.length);
-      for(var i = 0; i < perguntas.length; i++) {
-        var element1 = document.getElementById("perguntasTipo1");
-
-        var div = document.createElement("div");
-        div.className = "perguntas";
-        element1.appendChild(div);
-
-        var pergunta = document.createElement("p");
-        pergunta.style.textAlign = "center";
-        var textNode = document.createTextNode(perguntas[i].get("texto"));
-        pergunta.appendChild(textNode);
-
-        var autor = document.createElement("p");
-        autor.style.textAlign = "center";
-        textNode = document.createTextNode("Autor: " + perguntas[i].get("autor"));
-        autor.appendChild(textNode);
-
-        div.appendChild(pergunta);
-        div.appendChild(autor);        
-
+    function gerarPerguntas(perguntas, type) {
+      var element;
+      if(type == 1)
+        element = document.getElementById("perguntasTipo1");
+      else {
+        element = document.getElementById("perguntasTipo2");
       }
-    }
-
-    function gerarPerguntasTipo2(perguntas) {
-      console.log("Chegou p2: " + perguntas.length);
       for(var i = 0; i < perguntas.length; i++) {
-        var element2 = document.getElementById("perguntasTipo2");
 
         var div = document.createElement("div");
-        div.className = "perguntas";
-        element2.appendChild(div);
+        div.className = "perguntasDiv";
+        div.style.marginBottom = "5px";
+        element.appendChild(div);
 
         var pergunta = document.createElement("p");
+        pergunta.className = "perguntas";
         pergunta.style.textAlign = "center";
         var textNode = document.createTextNode(perguntas[i].get("texto"));
         pergunta.appendChild(textNode);
 
         var autor = document.createElement("p");
+        autor.className = "autores";
         autor.style.textAlign = "center";
         textNode = document.createTextNode("Autor: " + perguntas[i].get("autor"));
         autor.appendChild(textNode);
+
+        var resposta = perguntas[i].get("resposta");
+        console.log(resposta);
+        textNode = document.createTextNode(resposta);
+        var respostaP = document.createElement("p");
+        respostaP.className = "respostas";
+        respostaP.style.display = "none";
+        respostaP.appendChild(textNode);
+
+        var btn = document.createElement("button");
+        if(resposta == undefined) {
+          btn.className = "btn btn-lg btn-warning btn-center";
+          textNode = document.createTextNode("Não respondida");
+          btn.appendChild(textNode);
+        } else {
+          btn.className = "btn btn-lg btn-success btn-center";
+          textNode = document.createTextNode("Ver resposta");
+          btn.appendChild(textNode);
+          btn.onclick = function(event) {
+            console.log(event.srcElement.parentElement);
+            var resposta = event.srcElement.parentElement.getElementsByClassName("respostas")[0];
+            resposta.style.display = "block";
+          }
+        }
 
         div.appendChild(pergunta);
         div.appendChild(autor);
-      }    
+        div.appendChild(document.createElement("br"));
+        div.appendChild(respostaP);
+        div.appendChild(btn);
+      }
     }
     
     </script>
